@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/my-project
+    working_directory: ~/testci
     docker:
       # specify the version you desire here
       # see https://hub.docker.com/r/circleci/node/tags/
@@ -9,10 +9,10 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: my-project-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          key: testci-{{ .Branch }}-{{ checksum "package-lock.json" }}
       - run: npm install
       - save_cache:
-          key: my-project-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          key: testci-{{ .Branch }}-{{ checksum "package-lock.json" }}
           paths:
              - "node_modules"
       - run: npm run test -- --watch=false --progress=false --browsers=ChromeHeadlessCI
